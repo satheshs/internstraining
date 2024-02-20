@@ -1,0 +1,66 @@
+class ATM:
+    def __init__(self,name,pin,balance=0):
+        self.name=name
+        self.pin=pin
+        self.balance=balance
+        self.transaction=[]
+        
+    def deposit(self,amount):
+        self.balance += amount
+        self.transaction.append(f"Deposit:, +{amount}")
+    
+    def withdraw(self,amount):
+        if amount <= self.balance:
+            self.balance -= amount
+            self.transaction.append(f"withdraw: ,-{amount}")
+        else:
+            print("Insufficient funds!")
+    
+    def display_balance(self):
+        print("Account Balance:",self.balance)
+        
+    def display_transaction(self):
+        print("Transaction history:")
+        for Transaction in self.transaction:
+            print(Transaction)
+
+class Account:
+    def __init__(self):
+        self.account={}
+    
+    def create_account(self,name,pin):
+        if name in self.account:
+            print("Account already exits")
+        else:
+            self.account[name]=Account(name,pin)
+            print("Account created successfully")
+            
+    def main(self, account):
+        
+        while True:
+            print("\n1.create_account \n2.Deposit \n3.Withdraw \n4.Display balance \n5.transaction History \n6.Exit")
+            choice=input("Enter your choice(1-6):")
+            if choice=='1':
+                name=input("enter account name: ")
+                pin=input("enter pin: ")
+                self.create_account(name,pin)
+            elif choice=='2':    
+                amount=float(input("Enter deposit amount: "))
+                account.deposit(amount)
+            elif choice=='3':
+                amount=float(input("Enter withdrawal amount: "))
+                account.withdraw(amount)
+            elif choice=='4':
+                account.display_balance()
+            elif choice=='5':
+                account.display_transaction()
+            elif choice=='6':
+                print("Exiting program")
+                break
+            else:
+                print("Invalid choice.please enter a number between 1 and 5")
+       
+        
+if __name__=="__main__":
+    atm=Account()
+    atm.main()
